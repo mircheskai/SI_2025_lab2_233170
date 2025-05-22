@@ -7,7 +7,7 @@
 Користејќи ја формулата P+1, каде P претставува бројот на предикатни јазли. На графот можат да се приметат 8 предикатни јазли, па цикломатската комплексност ќе изнесува 8+1 = 9.
 
 ## Тест случаи според критериумот Every statement
-За да се постигне минимум за критериумот Every Statement доволно се 5 тест случаи:
+За да се постигне минимум за критериумот Every Statement доволни се 5 тест случаи:
 #### Се тестираат изразите кои завршуваат со „allItems list can't be null!“ грешка
 ```java
 // Null item list throws exception
@@ -45,4 +45,27 @@ assertEquals("Invalid character in card number!",
 ```java
 // Returns valid total, every statement visited
 assertEquals(3920, SILab2.checkCart(itemList, "1298421398412398"));
+```
+
+### Тест случаи според критериумот Multiple Condition
+За да се постигне минимум за критериумот Multiple Condition доволни се 4 тест случаи, бидејќи имаме два OR оператори, најпрво ако првиот израз е точен, другите два се редундантни, потоа ако првиот е грешен и вториот е точен (правејќи го третиот редундантен), потоа ако првиот и вториот се грешни и третиот е точен, и на крај кога сите три се грешни:
+```java
+// item.getPrice() > 300 || X || X
+List<Item> test1 = List.of(new Item("Licorice", 7, 1000, 0));
+assertEquals(6970, SILab2.checkCart(test1, "1298421398412398"));
+```
+```java
+// F || item.getDiscount() > 0 || X
+List<Item> test2 = List.of(new Item("Stobi Flips", 6, 39, 0.5));
+assertEquals(87, SILab2.checkCart(test2, "1298421398412398"));
+```
+```java
+// F || F || item.getQuantity() > 10
+List<Item> test3 = List.of(new Item("Orbit", 20, 50, 0));
+assertEquals(970, SILab2.checkCart(test3, "1298421398412398"));
+```
+```java
+// F || F || F
+List<Item> test4 = List.of(new Item("Peanut Butter", 1, 199, 0));
+assertEquals(199, SILab2.checkCart(test4, "1298421398412398"));
 ```
